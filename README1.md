@@ -1,4 +1,3 @@
-
 ```mermaid
 classDiagram
     class VehicleRentalSystem
@@ -47,27 +46,53 @@ classDiagram
     Payment o-- PaymentMode
 ```
 
-## Relationship Explanations
+## Embedded Design Patterns Explained
 
-- **Composition:**  
-  - `VehicleRentalSystem *-- Store`: System owns Stores  
-  - `Store *-- Location`: Store has Location  
-  - `Reservation *-- Bill`: Reservation creates Bill  
-  - `Bill *-- Payment`: Bill generates Payment  
+### 1. **Strategy Pattern**
+- **Where:**  
+  - `VehicleInventoryManagement` (interface/abstract)  
+    → `CarInventoryManagement`, `BikeInventoryManagement` (implementing/deriving classes)
+- **Intent:**  
+  - Strategy allows the system to select the inventory management algorithm for cars or bikes at runtime, keeping management logic extensible and replaceable.
 
-- **Aggregation:**  
-  - `VehicleRentalSystem o-- User`: System manages Users  
-  - `Store o-- VehicleInventoryManagement`: Store uses Inventory  
-  - `Reservation o-- Vehicle`: Reservation uses Vehicle  
-  - `Reservation o-- Location`: Pickup Location  
+### 2. **Inheritance (OOP)**
+- **Where:**  
+  - `Vehicle <|-- Car`  
+  - `Vehicle <|-- Bike`
+- **Intent:**  
+  - Base class (`Vehicle`) lets cars and bikes share common attributes/behavior but specialize as needed.
 
-- **Association:**  
-  - `User --> Reservation`: User makes Reservations
+### 3. **Composition**
+- **Where:**  
+  - `VehicleRentalSystem *-- Store`  
+  - `Store *-- Location`  
+  - `Reservation *-- Bill`  
+  - `Bill *-- Payment`
+- **Intent:**  
+  - "Has-a" relationships. Lifetime of part is managed by parent. E.g., a store cannot exist without a system.
 
-- **Inheritance & Strategy Pattern:**  
-  - `Vehicle <|-- Car`, `Vehicle <|-- Bike`: Car/Bike inherit Vehicle  
-  - `VehicleInventoryManagement <|.. CarInventoryManagement`, `VehicleInventoryManagement <|.. BikeInventoryManagement`: Strategy Pattern
+### 4. **Aggregation**
+- **Where:**  
+  - `VehicleRentalSystem o-- User`  
+  - `Store o-- VehicleInventoryManagement`  
+  - `Reservation o-- Vehicle`  
+  - `Reservation o-- Location`
+- **Intent:**  
+  - "Uses-a" relationships—parts can exist independently.
 
-- **Enum aggregation:**  
-  - `Vehicle o-- VehicleType`, `Vehicle o-- Status`,  
-  - `Reservation o-- ReservationStatus`, `Payment o-- PaymentMode`
+### 5. **Association**
+- **Where:**  
+  - `User --> Reservation`
+- **Intent:**  
+  - Simple links, representing user action to make a reservation.
+
+### 6. **Enum Aggregation**
+- **Where:**  
+  - Vehicles, Reservations, Payments are linked with property/status enums: `VehicleType`, `Status`, `ReservationStatus`, `PaymentMode`
+- **Intent:**  
+  - Assign states/types to objects, making system more robust and readable.
+
+---
+
+**Note:**  
+Mermaid "note on link" is *not* supported in GitHub. These explanations clarify the diagram and its included design patterns.
