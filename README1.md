@@ -93,6 +93,3 @@ classDiagram
   - Assign states/types to objects, making system more robust and readable.
 
 ---
-
-**Note:**  
-Mermaid "note on link" is *not* supported in GitHub. These explanations clarify the diagram and its included design patterns.
